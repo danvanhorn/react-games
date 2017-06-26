@@ -2,6 +2,10 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "repository" :
+  { "type" : "git"
+  , "url" : "https://github.com/danvanhorn/react-games.git"
+  },
   "dependencies": {
     "@types/jest": "^20.0.0",
     "@types/node": "^7.0.31",
