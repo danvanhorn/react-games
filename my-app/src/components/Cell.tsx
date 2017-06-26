@@ -3,14 +3,21 @@ import styled from 'styled-components';
 
 export interface CellProps {
     className?: string;
+    value?: string;
 }
 
 class Cell extends React.Component< CellProps , {} > {
+    handleClick() {
+        alert('click');
+    }
+    
     render() {
+        const { value } = this.props; 
         return(
-        <button className={this.props.className} onClick={() => alert('youve clicked')}>
-            X
-        </button>);
+            <button className={this.props.className} onClick={this.handleClick}>
+                {value}
+            </button>
+        );
     }
 }
 

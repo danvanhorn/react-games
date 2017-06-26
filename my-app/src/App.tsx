@@ -1,6 +1,7 @@
 import * as React from 'react';
 import GameContainer from './components/Game';
 import TicTac from './components/TicTac';
+import ScoreBoard from './components/ScoreBoard';
 // import './App.css';
 // import styled from "styled-components";
 import { injectGlobal } from 'styled-components';
@@ -33,6 +34,7 @@ class App extends React.Component< AppProps, null> {
     return (
       <GameContainer numPlayers={2}>
         <TicTac />
+        <ScoreBoard game="TicTacToe"/>
       </GameContainer>
     );
   }
