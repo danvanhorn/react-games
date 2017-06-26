@@ -1,20 +1,39 @@
 import * as React from 'react';
-import './App.css';
+import GameContainer from './components/Game';
+import TicTac from './components/TicTac';
+// import './App.css';
+// import styled from "styled-components";
+import { injectGlobal } from 'styled-components';
 
-const logo = require('./logo.svg');
+injectGlobal`
+  * { 
+    margin: 0; 
+    padding: 0; 
+  }
 
-class App extends React.Component<{}, null> {
+  body { /* can also be whatever container */
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+  }
+
+`;
+
+// could add a selector for new games
+export interface AppProps {
+  compiler: string;
+  framework: string;
+}
+
+class App extends React.Component< AppProps, null> {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to MY Ballzzzz</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>DEEZ NUTZ</code> and save to reload.
-        </p>
-      </div>
+      <GameContainer numPlayers={2}>
+        <TicTac />
+      </GameContainer>
     );
   }
 }
