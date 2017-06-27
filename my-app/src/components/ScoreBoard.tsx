@@ -12,7 +12,7 @@ class ScoreBoard extends React.Component< ScoreBoardProps, {} > {
         const { game, className } = this.props;
         return (
             <div className={className}>
-                <h4 style={{width: '100%', justifyContent: 'center'}}> Score Board for {game}</h4>
+                <h4 style={{width: '100%', textAlign: 'center'}}> Score Board for {game}</h4>
                 <ScoreCard id="1" playerName="Dan"/>
                 <ScoreCard id="2"/>
             </div>

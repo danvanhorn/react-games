@@ -12,9 +12,9 @@ class Cell extends React.Component< CellProps , {} > {
     }
     
     render() {
-        const { value } = this.props; 
+        const { value , className } = this.props; 
         return(
-            <button className={this.props.className} onClick={this.handleClick}>
+            <button className={className} onClick={this.handleClick} >
                 {value}
             </button>
         );
@@ -33,6 +33,7 @@ const styledCell = styled(Cell)`
   padding: 0;
   text-align: center;
   width: 5em;
+  outline: none;
 `;
 
 export default styledCell;
