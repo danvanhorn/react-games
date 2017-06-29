@@ -1,16 +1,31 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-export interface CellProps {
+interface CellProps {
     className?: string;
 }
 
-class Cell extends React.Component< CellProps , {} > {
+interface CellState {
+    value: string;
+}
+
+class Cell extends React.Component< CellProps , CellState > {
+    constructor() {
+        super();
+        this.state = { value: '' };
+    }
+    
+    handleClick() {
+        alert('click');
+    }
+    
     render() {
-        return(
-        <button className={this.props.className} onClick={() => alert('youve clicked')}>
-            X
-        </button>);
+        const { className } = this.props; 
+        return (
+            <button className={className} onClick={this.handleClick} >
+                {this.state.value}
+            </button>
+        );
     }
 }
 
@@ -26,6 +41,7 @@ const styledCell = styled(Cell)`
   padding: 0;
   text-align: center;
   width: 5em;
+  outline: none;
 `;
 
 export default styledCell;

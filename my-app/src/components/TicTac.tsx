@@ -2,11 +2,11 @@ import * as React from 'react';
 import styled from 'styled-components';
 import CellGroup from './CellGroup';
 
-export interface Props {
+export interface TicTacProps {
     className?: string;
 }
 
-class TicTac extends React.Component< Props , {} > {
+class TicTac extends React.Component< TicTacProps , {} > {
     render() {
         const { className } = this.props;
         return(
