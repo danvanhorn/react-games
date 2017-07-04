@@ -1,6 +1,6 @@
 import * as React from 'react';
 import GameContainer from './components/Game';
-import TicTac from './components/TicTac';
+
 // import './App.css';
 // import styled from "styled-components";
 import { injectGlobal } from 'styled-components';
@@ -11,7 +11,10 @@ injectGlobal`
     padding: 0; 
   }
 
-  body { /* can also be whatever container */
+  html { 
+    font-family: 'Roboto', sans-serif;
+    background: rgb(29, 77, 155);
+    color: white;
     display: -webkit-flex;
     display: flex;
     -webkit-align-items: center;
@@ -28,12 +31,10 @@ export interface AppProps {
   framework: string;
 }
 
-class App extends React.Component< AppProps, null> {
+class App extends React.Component< AppProps, {} > {
   render() {
     return (
-      <GameContainer numPlayers={2}>
-        <TicTac />
-      </GameContainer>
+      <GameContainer numPlayers={2}/>
     );
   }
 }
