@@ -1,5 +1,20 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import TicTac from './TicTac';
+import ScoreBoard from './ScoreBoard';
+import Player from './Interfaces';
+
+let p1 = {
+    name: 'Player1',
+    symbol: 'X',
+    isActive: true
+};
+
+let p2 = {
+    name: 'Player2',
+    symbol: 'O',
+    isActive: false
+};
 
 interface GameProps {
     className?: string;
@@ -7,17 +22,17 @@ interface GameProps {
 }
 
 interface GameState {
-    player1: string;
-    player2: string;
+    player1: Player;
+    player2: Player;
     board: string[];
 }
 
 class GameContainer extends React.Component< GameProps , GameState > {
-    constructor() {
-        super();
+    constructor(props: GameProps) {
+        super(props);
         this.state = {
-            player1: 'Player 1',
-            player2: 'Player 2',
+            player1: p1,
+            player2: p2,
             board: Array(9).fill(''),
         };
     }
@@ -25,7 +40,8 @@ class GameContainer extends React.Component< GameProps , GameState > {
     render() {
         return(
         <div className={this.props.className}>
-            {this.props.children}
+            <TicTac player1={p1} player2={p2}/>
+            <ScoreBoard game="TicTacToe" player1={p1} player2={p2}/>
         </div>);
     }
 }

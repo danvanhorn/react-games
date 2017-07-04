@@ -1,8 +1,11 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import Player from './Interfaces';
 
 interface CellProps {
     className?: string;
+    activePlayer: Player;
+    onTurnEnd: Function;
 }
 
 interface CellState {
@@ -10,13 +13,20 @@ interface CellState {
 }
 
 class Cell extends React.Component< CellProps , CellState > {
-    constructor() {
-        super();
+    constructor(props: CellProps) {
+        super(props);
         this.state = { value: '' };
+        this.handleClick = this.handleClick.bind(this);
     }
-    
-    handleClick() {
-        alert('click');
+
+    handleClick(event: any) {
+        const { activePlayer, onTurnEnd } = this.props;
+        if (this.state.value === '') {
+            this.setState({
+                value: activePlayer.symbol
+            });
+            onTurnEnd();
+        }
     }
     
     render() {

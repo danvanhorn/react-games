@@ -1,63 +1,25 @@
 import * as React from 'react';
 import styled from 'styled-components';
-
-const EditButtonStyle = {
-    color: 'lightgray',
-    marginLeft: '1em'
-};
+import Player from './Interfaces';
 
 interface ScoreCardProps {
     className?: string;
-    playerName?: string;
-    id: string;
+    player: Player;
 }
 
-interface ScoreCardState {
-    playerName?: string;
-}
+interface ScoreCardState {}
 
 class ScoreCard extends React.Component< ScoreCardProps, ScoreCardState > {
-    constructor(props: any) {
+    constructor(props: ScoreCardProps) {
         super(props);
-        if (this.props.playerName !== '') {
-            this.state = { 
-                playerName: props.playerName
-            };
-        }else {
-            this.state = {
-                playerName: 'Player' + props.id
-            };
-        }
-        this.inputToHeading = this.inputToHeading.bind(this);
-        this.headingToInput = this.headingToInput.bind(this);
-        this.saveName = this.saveName.bind(this);
-    }
-
-    saveName() {
-        // TODO: set the player name in state here?
-        return 0;
-    }
-
-    headingToInput() {
-        return (
-            <input id={this.props.id} value="Enter name...">
-                <button style={EditButtonStyle} onClick={this.saveName}>Save</button>
-            </input>
-        );
-    }
-
-    inputToHeading() {
-        // TODO: convert the heading to an input so the player can enter a name
-        return 0;
     }
 
     render() {
-        const { className, playerName, id } = this.props;
+        const { className, player } = this.props;
         return (
-            <div id={id} className={className}>
+            <div className={className}>
                 <h4>
-                    {playerName}
-                    <button style={EditButtonStyle} onClick={this.inputToHeading} value="Edit"/>
+                    {player.name}
                 </h4>
             </div>
         );

@@ -1,20 +1,28 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import ScoreCard from './ScoreCard';
+import Player from './Interfaces';
 
 interface ScoreBoardProps {
     className?: string;
+    player1: Player;
+    player2: Player;
     game: string;
 }
 
-class ScoreBoard extends React.Component< ScoreBoardProps, {} > {
+interface ScoreBoardState {}
+
+class ScoreBoard extends React.Component< ScoreBoardProps, ScoreBoardState > {
+    constructor(props: ScoreBoardProps) {
+        super();
+    }
     render() {
-        const { game, className } = this.props;
+        const { game, player1, player2, className } = this.props;
         return (
             <div className={className}>
                 <h4 style={{width: '100%', textAlign: 'center'}}> Score Board for {game}</h4>
-                <ScoreCard id="1" playerName="Dan"/>
-                <ScoreCard id="2" playerName="Jeff"/>
+                <ScoreCard player={player1}/>
+                <ScoreCard player={player2}/>
             </div>
         );
     }
