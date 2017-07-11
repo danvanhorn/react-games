@@ -1,26 +1,41 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import Player from './Interfaces';
+import IPlayer from './interfaces/IPlayer';
+
+const highlightedStyle = {
+    background: 'white',
+    color: 'black'
+};
 
 interface ScoreCardProps {
     className?: string;
-    player: Player;
+    player: IPlayer;
 }
 
-interface ScoreCardState {}
+interface ScoreCardState {
+    player: IPlayer;
+}
 
 class ScoreCard extends React.Component< ScoreCardProps, ScoreCardState > {
     constructor(props: ScoreCardProps) {
         super(props);
+        this.state = {
+            player: this.props.player
+        };
     }
 
     render() {
-        const { className, player } = this.props;
+        const { className } = this.props;
+        const { player } = this.state;
+        let content = null;
+        if (player.isActive) {
+            content = (<h4 style={highlightedStyle}>{player.name}</h4>);
+        }else {
+            content = (<h4>{player.name}</h4>);
+        }
         return (
             <div className={className}>
-                <h4>
-                    {player.name}
-                </h4>
+                {content}
             </div>
         );
     }

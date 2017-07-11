@@ -1,61 +1,80 @@
-import * as React from 'react';
-import styled from 'styled-components';
-import CellGroup from './CellGroup';
-import Player from './Interfaces';
+import * as React from "react";
+import styled from "styled-components";
+import Cell from "./Cell";
+import IPlayer from "./interfaces/IPlayer";
+import ICell from "./interfaces/ICell";
 
 interface TicTacProps {
-    className?: string;
-    player1: Player;
-    player2: Player;
+  className?: string;
+  activePlayer: IPlayer;
+  onTurnEnd: Function;
+  board: Array<ICell>;
 }
 
-interface TicTacState {
-    activePlayer: Player;
-}
+class TicTac extends React.Component<TicTacProps, {}> {
+  constructor(props: TicTacProps) {
+    super(props);
+  }
 
-class TicTac extends React.Component< TicTacProps , TicTacState > {
-    constructor(props: TicTacProps) {
-        super(props);
-        this.state = {
-            activePlayer: this.props.player1
-        };
-        this.switchPlayer = this.switchPlayer.bind(this);
-    }
-
-    switchPlayer() {
-        const { player1, player2 } = this.props;
-        if (player1.isActive) {
-            this.setActivePlayer(player2);
-        }else {
-            this.setActivePlayer(player1);
-        }
-    }
-
-    setActivePlayer(player: Player) {
-        const { player1, player2 } = this.props;
-        player2.isActive = !player2.isActive;
-        player1.isActive = !player1.isActive;
-        this.setState({
-            activePlayer: player
-        });
-    }
-    
-    setCellContent() {
-        return 0;
-    }
-    
-    render() {
-        const { className } = this.props;
-        const { activePlayer } = this.state;
-        return(
-            <div className={className}>
-                <h1>Tic Tac Toe</h1>
-                <CellGroup activePlayer={activePlayer} onTurnEnd={this.switchPlayer}/>
-                <CellGroup activePlayer={activePlayer} onTurnEnd={this.switchPlayer}/>
-                <CellGroup activePlayer={activePlayer} onTurnEnd={this.switchPlayer}/>
-            </div>
-        );
-    }
+  render() {
+    const { className, onTurnEnd, activePlayer, board } = this.props;
+    return (
+      <div className={className}>
+        <h1>Tic Tac Toe</h1>
+        <div>
+          <Cell
+            activePlayer={activePlayer}
+            onTurnEnd={onTurnEnd}
+            cell={board[0]}
+          />
+          <Cell
+            activePlayer={activePlayer}
+            onTurnEnd={onTurnEnd}
+            cell={board[1]}
+          />
+          <Cell
+            activePlayer={activePlayer}
+            onTurnEnd={onTurnEnd}
+            cell={board[2]}
+          />
+        </div>
+        <div>
+          <Cell
+            activePlayer={activePlayer}
+            onTurnEnd={onTurnEnd}
+            cell={board[3]}
+          />
+          <Cell
+            activePlayer={activePlayer}
+            onTurnEnd={onTurnEnd}
+            cell={board[4]}
+          />
+          <Cell
+            activePlayer={activePlayer}
+            onTurnEnd={onTurnEnd}
+            cell={board[5]}
+          />
+        </div>
+        <div>
+          <Cell
+            activePlayer={activePlayer}
+            onTurnEnd={onTurnEnd}
+            cell={board[6]}
+          />
+          <Cell
+            activePlayer={activePlayer}
+            onTurnEnd={onTurnEnd}
+            cell={board[7]}
+          />
+          <Cell
+            activePlayer={activePlayer}
+            onTurnEnd={onTurnEnd}
+            cell={board[8]}
+          />
+        </div>
+      </div>
+    );
+  }
 }
 
 const styledTicTac = styled(TicTac)`
