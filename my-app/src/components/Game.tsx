@@ -80,6 +80,7 @@ class GameContainer extends React.Component<GameProps, GameState> {
     this.setState({
       gameBoard: newBoard
     });
+    //Check Win
     this.switchPlayer();
   }
 
