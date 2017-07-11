@@ -1,20 +1,27 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import ScoreCard from './ScoreCard';
-import Player from './Interfaces';
+import IPlayer from './interfaces/IPlayer';
 
 interface ScoreBoardProps {
     className?: string;
-    player1: Player;
-    player2: Player;
+    player1: IPlayer;
+    player2: IPlayer;
     game: string;
 }
 
-interface ScoreBoardState {}
+interface ScoreBoardState {
+    player1: IPlayer;
+    player2: IPlayer;
+}
 
 class ScoreBoard extends React.Component< ScoreBoardProps, ScoreBoardState > {
     constructor(props: ScoreBoardProps) {
-        super();
+        super(props);
+        this.state = {
+            player1: this.props.player1,
+            player2: this.props.player2
+        };
     }
     render() {
         const { game, player1, player2, className } = this.props;

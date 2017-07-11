@@ -2,9 +2,9 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "repository" :
-  { "type" : "git"
-  , "url" : "https://github.com/danvanhorn/react-games.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danvanhorn/react-games.git"
   },
   "dependencies": {
     "@types/jest": "^20.0.0",
@@ -16,7 +16,9 @@
     "styled-components": "^2.1.0"
   },
   "devDependencies": {
-    "react-scripts-ts": "2.2.0"
+    "prettier": "^1.5.2",
+    "react-scripts-ts": "2.2.0",
+    "tslint-config-prettier": "^1.1.0"
   },
   "scripts": {
     "start": "react-scripts-ts start",

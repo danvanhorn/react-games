@@ -1,7 +1,9 @@
-interface Player{
+interface IPlayer{
     name: string,
     symbol: string,
     isActive: boolean
 };
 
-export default Player;
+export default IPlayer;
+
+
