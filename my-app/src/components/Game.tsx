@@ -1,19 +1,20 @@
-import * as React from "react";
-import styled from "styled-components";
-import TicTac from "./TicTac";
-import ScoreBoard from "./ScoreBoard";
-import IPlayer from "./interfaces/IPlayer";
-import ICell from "./interfaces/ICell";
+import * as React from 'react';
+import styled from 'styled-components';
+import TicTac from './TicTac';
+import ScoreBoard from './ScoreBoard';
+import WinMessage from './WinMessage';
+import IPlayer from './interfaces/IPlayer';
+import ICell from './interfaces/ICell';
 
 let p1 = {
-  name: "Player1",
-  symbol: "X",
+  name: 'Player1',
+  symbol: 'X',
   isActive: true
 };
 
 let p2 = {
-  name: "Player2",
-  symbol: "O",
+  name: 'Player2',
+  symbol: 'O',
   isActive: false
 };
 
@@ -27,6 +28,7 @@ interface GameState {
   player2: IPlayer;
   activePlayer: IPlayer;
   gameBoard: ICell[];
+  isGameOver: Boolean;
 }
 
 const getNewBoard = () => {
@@ -34,14 +36,12 @@ const getNewBoard = () => {
   for (let i = 0; i < 9; i++) {
     let cell: ICell = {
       key: i,
-      value: ""
+      value: ''
     };
     board[i] = cell;
   }
   return board;
 };
-
-console.log(getNewBoard());
 
 class GameContainer extends React.Component<GameProps, GameState> {
   constructor(props: GameProps) {
@@ -50,42 +50,112 @@ class GameContainer extends React.Component<GameProps, GameState> {
       player1: p1,
       player2: p2,
       activePlayer: p1,
-      gameBoard: getNewBoard()
+      gameBoard: getNewBoard(),
+      isGameOver: false
     };
     this.setCellContent = this.setCellContent.bind(this);
     this.switchPlayer = this.switchPlayer.bind(this);
   }
 
-  switchPlayer() {
+  switchPlayer = () => {
     const { player1, player2 } = this.state;
     if (player1.isActive) {
       this.setActivePlayer(player2);
     } else {
       this.setActivePlayer(player1);
     }
-  }
+  };
 
-  setActivePlayer(player: IPlayer) {
+  // Extremely verbose logic to check if the game is over
+  checkWin = () => {
+    const { gameBoard, activePlayer } = this.state;
+    const symbol = activePlayer.symbol;
+    let gameOver = false;
+    if (
+      gameBoard[0].value === symbol &&
+      gameBoard[1].value === symbol &&
+      gameBoard[2].value === symbol
+    ) {
+      gameOver = true;
+    } else if (
+      gameBoard[3].value === symbol &&
+      gameBoard[4].value === symbol &&
+      gameBoard[5].value === symbol
+    ) {
+      gameOver = true;
+    } else if (
+      gameBoard[6].value === symbol &&
+      gameBoard[7].value === symbol &&
+      gameBoard[8].value === symbol
+    ) {
+      gameOver = true;
+    } else if (
+      gameBoard[0].value === symbol &&
+      gameBoard[3].value === symbol &&
+      gameBoard[6].value === symbol
+    ) {
+      gameOver = true;
+    } else if (
+      gameBoard[1].value === symbol &&
+      gameBoard[4].value === symbol &&
+      gameBoard[7].value === symbol
+    ) {
+      gameOver = true;
+    } else if (
+      gameBoard[2].value === symbol &&
+      gameBoard[6].value === symbol &&
+      gameBoard[8].value === symbol
+    ) {
+      gameOver = true;
+    } else if (
+      gameBoard[0].value === symbol &&
+      gameBoard[4].value === symbol &&
+      gameBoard[8].value === symbol
+    ) {
+      gameOver = true;
+    } else if (
+      gameBoard[2].value === symbol &&
+      gameBoard[4].value === symbol &&
+      gameBoard[6].value === symbol
+    ) {
+      gameOver = true;
+    }
+    this.setState(() => {
+      return { isGameOver: gameOver };
+    });
+  };
+
+  setActivePlayer = (player: IPlayer) => {
     const { player1, player2 } = this.state;
     player2.isActive = !player2.isActive;
     player1.isActive = !player1.isActive;
     this.setState({
       activePlayer: player
     });
-  }
+  };
 
-  setCellContent(cell: ICell, symbol: string) {
+  setCellContent = (cell: ICell, symbol: string) => {
     let newBoard = this.state.gameBoard;
     newBoard[cell.key].value = symbol;
-    this.setState({
-      gameBoard: newBoard
+    this.setState(() => {
+      return { gameBoard: newBoard };
     });
-    //Check Win
+    this.checkWin();
     this.switchPlayer();
-  }
+  };
+
+  handleClick = () => {
+    this.setState(() => {
+      return {
+        gameBoard: getNewBoard(),
+        isGameOver: false,
+        activePlayer: p1
+      };
+    });
+  };
 
   render() {
-    const { activePlayer, gameBoard } = this.state;
+    const { activePlayer, gameBoard, isGameOver } = this.state;
     return (
       <div className={this.props.className}>
         <TicTac
@@ -94,6 +164,7 @@ class GameContainer extends React.Component<GameProps, GameState> {
           onTurnEnd={this.setCellContent}
         />
         <ScoreBoard game="TicTacToe" player1={p1} player2={p2} />
+        {isGameOver ? <WinMessage onClick={this.handleClick} /> : null}
       </div>
     );
   }
