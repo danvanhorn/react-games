@@ -1,9 +1,9 @@
-import * as React from "react";
-import GameContainer from "./components/Game";
+import * as React from 'react';
+import GameContainer from './components/Game';
 
 // import './App.css';
 // import styled from "styled-components";
-import { injectGlobal } from "styled-components";
+import { injectGlobal } from 'styled-components';
 
 injectGlobal`
   * { 
@@ -22,7 +22,6 @@ injectGlobal`
     -webkit-justify-content: center;
     justify-content: center;
   }
-
 `;
 
 // could add a selector for new games
