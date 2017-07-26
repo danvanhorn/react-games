@@ -1,5 +1,5 @@
 import * as React from 'react';
-import GameContainer from './components/Game';
+import GameSelect from './components/GameSelect';
 
 // import './App.css';
 // import styled from "styled-components";
@@ -32,7 +32,7 @@ interface AppProps {
 
 class App extends React.Component<AppProps, {}> {
   render() {
-    return <GameContainer numPlayers={2} />;
+    return <GameSelect />;
   }
 }
 

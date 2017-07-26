@@ -1,10 +1,11 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import TicTac from './TicTac';
+import TicTac from './TicTacToe';
 import ScoreBoard from './ScoreBoard';
 import WinMessage from './WinMessage';
 import IPlayer from './interfaces/IPlayer';
 import ICell from './interfaces/ICell';
+import '../App.css';
 
 let p1 = {
   name: 'Player1',
@@ -26,6 +27,7 @@ interface GameProps {
 interface GameState {
   player1: IPlayer;
   player2: IPlayer;
+  winner: string;
   activePlayer: IPlayer;
   gameBoard: ICell[];
   isGameOver: Boolean;
@@ -43,19 +45,15 @@ const getNewBoard = () => {
   return board;
 };
 
-class GameContainer extends React.Component<GameProps, GameState> {
-  constructor(props: GameProps) {
-    super(props);
-    this.state = {
-      player1: p1,
-      player2: p2,
-      activePlayer: p1,
-      gameBoard: getNewBoard(),
-      isGameOver: false
-    };
-    this.setCellContent = this.setCellContent.bind(this);
-    this.switchPlayer = this.switchPlayer.bind(this);
-  }
+class TicTacToeContainer extends React.Component<GameProps, GameState> {
+  state = {
+    player1: p1,
+    player2: p2,
+    activePlayer: p1,
+    winner: '',
+    gameBoard: getNewBoard(),
+    isGameOver: false
+  };
 
   switchPlayer = () => {
     const { player1, player2 } = this.state;
@@ -121,7 +119,10 @@ class GameContainer extends React.Component<GameProps, GameState> {
       gameOver = true;
     }
     this.setState(() => {
-      return { isGameOver: gameOver };
+      return {
+        isGameOver: gameOver,
+        winner: activePlayer.name
+      };
     });
   };
 
@@ -136,12 +137,16 @@ class GameContainer extends React.Component<GameProps, GameState> {
 
   setCellContent = (cell: ICell, symbol: string) => {
     let newBoard = this.state.gameBoard;
-    newBoard[cell.key].value = symbol;
-    this.setState(() => {
-      return { gameBoard: newBoard };
-    });
-    this.checkWin();
-    this.switchPlayer();
+    if (newBoard[cell.key].value === '') {
+      newBoard[cell.key].value = symbol;
+      this.setState(() => {
+        return { gameBoard: newBoard };
+      });
+      this.checkWin();
+      if (!this.state.isGameOver) {
+        this.switchPlayer();
+      }
+    }
   };
 
   handleClick = () => {
@@ -164,16 +169,20 @@ class GameContainer extends React.Component<GameProps, GameState> {
           onTurnEnd={this.setCellContent}
         />
         <ScoreBoard game="TicTacToe" player1={p1} player2={p2} />
-        {isGameOver ? <WinMessage onClick={this.handleClick} /> : null}
+        {isGameOver
+          ? <WinMessage winner={this.state.winner} onClick={this.handleClick} />
+          : null}
       </div>
     );
   }
 }
 
-const styledGame = styled(GameContainer)`
+const styledTicTacToeContainer = styled(TicTacToeContainer)`
+    position: relative;
+    margin: 0 auto;
     padding: 50px;
     height: 500px;
     width: 500px;
 `;
 
-export default styledGame;
+export default styledTicTacToeContainer;

@@ -1,8 +1,8 @@
-import * as React from "react";
-import styled from "styled-components";
-import Cell from "./Cell";
-import IPlayer from "./interfaces/IPlayer";
-import ICell from "./interfaces/ICell";
+import * as React from 'react';
+import styled from 'styled-components';
+import Cell from './Cell';
+import IPlayer from './interfaces/IPlayer';
+import ICell from './interfaces/ICell';
 
 interface TicTacProps {
   className?: string;
@@ -11,7 +11,7 @@ interface TicTacProps {
   board: Array<ICell>;
 }
 
-class TicTac extends React.Component<TicTacProps, {}> {
+class TicTacToe extends React.Component<TicTacProps, {}> {
   constructor(props: TicTacProps) {
     super(props);
   }
@@ -77,11 +77,11 @@ class TicTac extends React.Component<TicTacProps, {}> {
   }
 }
 
-const styledTicTac = styled(TicTac)`
+const styledTicTacToe = styled(TicTacToe)`
     display: flex;
     flex-flow: column wrap;
     justify-content: space-between;
     align-items: center;
 `;
 
-export default styledTicTac;
+export default styledTicTacToe;
